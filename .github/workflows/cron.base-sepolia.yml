@@ -1,0 +1,75 @@
+name: CronJob Base Sepolia
+on:
+  schedule:
+    - cron: "*/20 * * * *" # ie. 4:20pm, 4:40pm, 5:00pm ... etc.
+  push:
+env:
+  CHAIN_ID: 11155420
+  MIN_PROFIT_THRESHOLD_USD: 0.1
+  SWAP_RECIPIENT: ''
+  JSON_RPC_URI: ${{ secrets.BASE_SEPOLIA_RPC_URI }}
+  COVALENT_API_KEY: ${{ secrets.COVALENT_API_KEY }}
+  CUSTOM_RELAYER_PRIVATE_KEY: ${{ secrets.CUSTOM_RELAYER_PRIVATE_KEY }}
+  ENV_TOKEN_ALLOW_LIST: ''
+  NODE_OPTIONS: "--max_old_space_size=32768"
+permissions: write-all
+jobs:
+  runCLI:
+    name: Liquidator Bot
+    runs-on: ${{ matrix.os }}
+    strategy:
+      max-parallel: 1
+      matrix:
+        node: ["20.11.1"]
+        os: [ubuntu-latest]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d--%H-%M-%S--%Z')" >> "$GITHUB_ENV"
+
+      - name: Run bot
+        id: runBot
+        run: |
+          npm install
+          printf '%s\n' "$date"
+          mkdir -p logs && npx tsx index.ts | tee logs/"$date".log
+
+      - name: Commit Logs
+        continue-on-error: true
+        run: |
+          git config pull.rebase false
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git pull
+          git add logs/*
+          git commit -m "Add "$date".log for Liquidator bot run on Base Sepolia"
+
+      - name: Push changes (if required)
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force: true
+
+      - name: Comment Error
+        id: commentError
+        if: steps.runBot.outputs.exitcode == 1
+        uses: actions/github-script@v5
+        continue-on-error: true
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Liquidator bot failed for run at "$date": Exit Code 1`
+            })
