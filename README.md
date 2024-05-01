@@ -26,8 +26,6 @@ You can simply fork this repo, enter your own custom environment variables in yo
 
 **Note**: This process is essentially the same for the [Prize Claimer](https://github.com/GenerationSoftware/pt-v5-prize-claimer-gh-action-bot/) and [Draw Auction](https://github.com/GenerationSoftware/pt-v5-draw-auction-gh-action-bot) bots as well.
 
-
-
 ---
 
 #### 1. Fork this repository
@@ -42,21 +40,19 @@ Start by forking this bot to your own new repository - this essentially deploys 
 
 [Fork / deploy this bot](https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/fork)
 
-
 #### 2. Set your environment variables
 
 Once the repository has been forked you can update your `Secrets` (under `Settings`) to point to your own API keys. Each bot requires 2 secrets: a private key which will send transactions on your bot's behalf, and a RPC URI such as one from [Infura](https://www.infura.io/) or [Alchemy](https://www.alchemy.com/).
 
 > <kbd><img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-settings-1.jpg?raw=true" /></kbd>
 
-
 > <kbd><img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-settings-2-jsonrpc.jpg?raw=true" /></kbd>
 
 `JSON_RPC_URI`: By default, this bot uses Optimism Sepolia - an Optimism testnet. If you are using a different chain (such as Optimism mainnet) the bot will require a `JSON_RPC_URI` that points to that chain.
 
 > <kbd>
-<img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-settings-4-privkey.jpg?raw=true" />
-</kbd>
+> <img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-settings-4-privkey.jpg?raw=true" />
+> </kbd>
 
 `CUSTOM_RELAYER_PRIVATE_KEY`: We recommend creating a brand new EVM account and only sending a small amount of ETH (less than $100) to it for relaying your bot transactions. In the rare case that the account gets compromised you will only lose whatever ETH is currently in it.
 
@@ -66,18 +62,17 @@ Once the repository has been forked you can update your `Secrets` (under `Settin
 
 > <kbd><img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-settings-5-some.jpg?raw=true" /></kbd>
 
-
 #### 3. Enable automated workflows
 
 By default, GitHub does not enable automated workflows for newly forked repositories. Navigate to the `Actions` tab to enable workflows on your newly forked repository:
 
 > <kbd><img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-actions-0-nothing.jpg?raw=true" /></kbd>
 
-Click 'I understand my workflows, go ahead and enable them'
+Click 'I understand my workflows, go ahead and enable them'.
 
 > <kbd><img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-actions-2-disabled.jpg?raw=true" /></kbd>
 
-**Important!** Click the little 'Enable workflow' button in the top-right corner
+**Important!** Click the little 'Enable workflow' button in the top-right corner.
 
 > <kbd><img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/screenshot-actions-3-enabled.jpg?raw=true" /></kbd>
 
@@ -96,10 +91,10 @@ Click the name of the run to see the logs. For instance, one of my runs is simpl
 In the [.github/workflows/cron.yml](/.github/workflows/cron.yml) file you can update the following variables: `CHAIN_ID`, `MIN_PROFIT_THRESHOLD_USD`, and/or `SWAP_RECIPIENT`. This will allow you to change which chain you are running the bot against, how much profit you want to make per transaction, and who (which EVM EOA account) receives the profits earned.
 
 ###### `CHAIN_ID`: Simply the chain ID. You can find most chain ID's on [https://chainlist.org/](https://chainlist.org/)
+
 ###### `MIN_PROFIT_THRESHOLD_USD`: This is in $USD, so 0.1 would be $0.10 per transaction
+
 ###### `SWAP_RECIPIENT`: Any typical account address, if left blank this will default to the relayer account set by the `CUSTOM_RELAYER_PRIVATE_KEY` variable.
-
-
 
 ## Lastly:
 
