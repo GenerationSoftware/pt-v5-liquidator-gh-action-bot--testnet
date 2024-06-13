@@ -1,5 +1,7 @@
 # PoolTogether v5 Liquidator Bot - GitHub Actions
 
+### DISCLAIMER: These bots are meant for intermediates & experts to run and modify to their liking. There is a lot of prerequisite knowledge about blockchains, private keys, swaps, and GitHub infrastructure that should be known before running a bot. If anyone ever asks you for your private key _do not give it to them_. Nobody from Generation Software, Pooltime, or PoolTogether will ever ask you for your private key.
+
 This repo contains two simple scripts ([index.ts](/index.ts) and [.github/workflows/cron.yml](/.github/workflows/cron.yml)) to run the Generation Software PoolTogether v5 Liquidator bot using GitHub Actions.
 
 You can simply fork this repo, enter your own custom environment variables in your newly-forked GitHub Repository's Settings (`Settings` -> `Secrets and variables` -> `Actions` -> `New repository secret`), and enable automated workflow runs.
@@ -14,9 +16,9 @@ You can simply fork this repo, enter your own custom environment variables in yo
 
 ### Installation:
 
-[<img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/video-thumb.jpg" width="50%">](https://www.youtube.com/watch?v=RmJySyZsHNc "Watch the 1-minute installation video")
+[<img src="https://github.com/GenerationSoftware/pt-v5-liquidator-gh-action-bot/blob/main/images/video-thumb.jpg" width="50%">](https://www.youtube.com/watch?v=Dt-ibfZH-LU "Watch the 1-minute installation video")
 
-[Watch the 1-minute video](https://www.youtube.com/watch?v=RmJySyZsHNc), or:
+[Watch the 1-minute video](https://www.youtube.com/watch?v=Dt-ibfZH-LU), or:
 
 1. [Fork this repository](#user-content-1-fork-this-repository)
 2. [Set your environment variables](#user-content-2-set-your-environment-variables)
@@ -91,7 +93,9 @@ Click the name of the run to see the logs. For instance, one of my runs is simpl
 In the [.github/workflows/cron.yml](/.github/workflows/cron.yml) file you can update the following variables: `CHAIN_ID`, `MIN_PROFIT_THRESHOLD_USD`, and/or `SWAP_RECIPIENT`. This will allow you to change which chain you are running the bot against, how much profit you want to make per transaction, and who (which EVM EOA account) receives the profits earned.
 
 ###### `CHAIN_ID`: Simply the chain ID. You can find most chain ID's on [https://chainlist.org/](https://chainlist.org/)
+
 ###### `MIN_PROFIT_THRESHOLD_USD`: This is in $USD, so 0.1 would be $0.10 per transaction
+
 ###### `SWAP_RECIPIENT`: Any typical account address, if left blank this will default to the relayer account set by the `CUSTOM_RELAYER_PRIVATE_KEY` variable.
 
 ## Lastly:
