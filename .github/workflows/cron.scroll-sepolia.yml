@@ -4,7 +4,7 @@ on:
     - cron: "*/20 * * * *" # ie. 4:05pm, 4:25pm, 4:45pm ... etc.
   push:
 env:
-  CHAIN_ID: 10200
+  CHAIN_ID: 534351
   MIN_PROFIT_THRESHOLD_USD: 0.01
   SWAP_RECIPIENT: ''
   JSON_RPC_URL: ${{ secrets.SCROLL_SEPOLIA_JSON_RPC_URL }}
