@@ -17,6 +17,7 @@ permissions: write-all
 jobs:
   runCLI:
     name: Liquidator Bot
+    if: false
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
