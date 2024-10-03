@@ -1,4 +1,4 @@
-name: CronJob - Liquidator Bot - Base Sepolia
+name: CronJob - Liquidator Bot - World Sepolia
 on:
   schedule:
     - cron: "*/10 * * * *" # ie. 4:05pm, 4:25pm, 4:45pm ... etc.
